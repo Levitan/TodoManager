@@ -4,23 +4,35 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 public class Tasks {
-    private long id;
+    public final int TYPE_BUG = 1;
+    public final int TYPE_NEW = 2;
+
+    public final int STATUS_NEW = 0;
+    public final int STATUS_CLOSE = 4;
+
+
+    private Long id;
     private String title;
     private String description;
-    private boolean priority;
+    private Integer priority;
     private Long category;
-    private boolean status;
+    private Integer status;
+    private Date startDate;
+    private Date endDate;
+    private Date createDate;
+    private Long type;
 
     @Id
     @Column(name = "ID", nullable = false, precision = 0)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,11 +58,11 @@ public class Tasks {
 
     @Basic
     @Column(name = "PRIORITY", nullable = false, precision = 0)
-    public boolean isPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(boolean priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
@@ -66,13 +78,54 @@ public class Tasks {
 
     @Basic
     @Column(name = "STATUS", nullable = false, precision = 0)
-    public boolean isStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
+
+    @Basic
+    @Column(name = "START_DATE", nullable = true)
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    @Basic
+    @Column(name = "END_DATE", nullable = true)
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    @Basic
+    @Column(name = "CREATE_DATE", nullable = false)
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    @Basic
+    @Column(name = "TYPE", nullable = false, precision = 0)
+    public Long getType() {
+        return type;
+    }
+
+    public void setType(Long type) {
+        this.type = type;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -81,24 +134,31 @@ public class Tasks {
 
         Tasks tasks = (Tasks) o;
 
-        if (id != tasks.id) return false;
-        if (priority != tasks.priority) return false;
-        if (status != tasks.status) return false;
-        if (title != null ? !title.equals(tasks.title) : tasks.title != null) return false;
+        if (!id.equals(tasks.id)) return false;
+        if (!title.equals(tasks.title)) return false;
         if (description != null ? !description.equals(tasks.description) : tasks.description != null) return false;
+        if (!priority.equals(tasks.priority)) return false;
         if (category != null ? !category.equals(tasks.category) : tasks.category != null) return false;
-
-        return true;
+        if (!status.equals(tasks.status)) return false;
+        if (startDate != null ? !startDate.equals(tasks.startDate) : tasks.startDate != null) return false;
+        if (endDate != null ? !endDate.equals(tasks.endDate) : tasks.endDate != null) return false;
+        if (!createDate.equals(tasks.createDate)) return false;
+        return type.equals(tasks.type);
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (title != null ? title.hashCode() : 0);
+        int result = id.hashCode();
+        result = 31 * result + title.hashCode();
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (priority ? 1 : 0);
+        result = 31 * result + priority.hashCode();
         result = 31 * result + (category != null ? category.hashCode() : 0);
-        result = 31 * result + (status ? 1 : 0);
+        result = 31 * result + status.hashCode();
+        result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
+        result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+        result = 31 * result + createDate.hashCode();
+        result = 31 * result + type.hashCode();
         return result;
     }
+
 }

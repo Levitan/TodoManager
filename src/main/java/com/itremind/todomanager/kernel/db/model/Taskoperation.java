@@ -4,24 +4,24 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Time;
+import java.util.Date;
 
 @Entity
 public class Taskoperation {
-    private long id;
+    private Long id;
     private String action;
     private String changedfield;
     private String oldValue;
     private String newValue;
-    private Time chngedDate;
+    private Date chngedDate;
 
     @Id
     @Column(name = "ID", nullable = false, precision = 0)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -67,11 +67,11 @@ public class Taskoperation {
 
     @Basic
     @Column(name = "CHNGED_DATE", nullable = false)
-    public Time getChngedDate() {
+    public Date getChngedDate() {
         return chngedDate;
     }
 
-    public void setChngedDate(Time chngedDate) {
+    public void setChngedDate(Date chngedDate) {
         this.chngedDate = chngedDate;
     }
 
